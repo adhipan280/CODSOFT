@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Grid Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .calculator-container {
+            background-color: #1e293b;
+            padding: 2rem;
+            border-radius: 18px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            border: 1px solid #334155;
+        }
+
+        /* Screen Display */
+        .calc-screen {
+            background-color: #0f172a;
+            color: #38bdf8;
+            width: 100%;
+            height: 70px;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 2rem;
+            text-align: right;
+            margin-bottom: 1.5rem;
+            outline: none;
+        }
+
+        /* Buttons Grid Layout */
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+        }
+
+        button {
+            padding: 1.2rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #334155;
+            color: #f8fafc;
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #475569;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Specific Button Accents */
+        button.operator {
+            background-color: #f59e0b;
+            color: #0f172a;
+        }
+
+        button.operator:hover {
+            background-color: #d97706;
+        }
+
+        button.clear {
+            background-color: #ef4444;
+            color: white;
+            grid-column: span 2;
+        }
+
+        button.clear:hover {
+            background-color: #dc2626;
+        }
+
+        button.equal {
+            background-color: #0ea5e9;
+            color: white;
+            grid-column: span 2;
+        }
+
+        button.equal:hover {
+            background-color: #0284c7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-container">
+        <input type="text" class="calc-screen" id="display" value="" readonly />
+
+        <div class="buttons-grid">
+            <button class="clear" onclick="clearScreen()">Clear</button>
+            <button class="operator" onclick="appendValue('/')">/</button>
+            <button class="operator" onclick="appendValue('*')">*</button>
+
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="operator" onclick="appendValue('-')">-</button>
+
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button class="operator" onclick="appendValue('+')">+</button>
+
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('.')">.</button>
+
+            <button onclick="appendValue('0')">0</button>
+            <button class="equal" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+
+        function appendValue(val) {
+            display.value += val;
+        }
+
+        function clearScreen() {
+            display.value = '';
+        }
+
+        function calculateResult() {
+            try {
+                if (display.value !== '') {
+                    // Evaluates the string mathematical logic securely
+                    display.value = eval(display.value);
+                }
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
